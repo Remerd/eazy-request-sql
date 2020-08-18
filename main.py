@@ -1,10 +1,21 @@
 #!/usr/bin/python
 import pymysql
-con = pymysql.connect('webvrdev.pro.izobretarium.ru', 'energo','zPMoL8HB', 'energo')
 
-cur = con.cursor()
-cur.execute("SELECT * FROM objects")
-rows = cur.fetchall()
+def db_request(host, user, passwd, db, columns):
+	conn = pymysql.connect(host, user, passwd, db)
 
-for row in rows:
-        print(str(row[0])+"\t"+str(row[1])+"\t"+str(row[2])+"\t"+str(row[3])+"\t"+str(row[4])+"\t"+str(row[5])+"\t"+str(row[6])+"\t"+str(row[7])+"\t"+str(row[8]))
+	cur = conn.cursor()
+	try:
+		cur.execute("SELECT * FROM objects")
+		rows = cur.fetchall()
+		for row in rows:
+			for i in range(columns):
+				print(str(row[i]), end="\t")
+			print()
+	except Exception as e:
+		print(e)
+		raise
+	else:
+		pass
+	finally:
+		print("done")
