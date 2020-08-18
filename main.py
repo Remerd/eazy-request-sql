@@ -1,4 +1,3 @@
-#!/usr/bin/python
 import pymysql
 
 def db_request(host, user, passwd, db, columns):
